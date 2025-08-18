@@ -20,6 +20,15 @@ public class friend_requests {
     @Column(name = "status", nullable = false)
     private role.status status;
 
+    @ManyToOne
+    @JoinColumn(name = "users_idusers", nullable = false)
+    private Users sender;
+
+    // Destinatário
+    @ManyToOne
+    @JoinColumn(name = "users_idusers1", nullable = false)
+    private Users receiver;
+
     public Long getUUID() {
         return UUID;
     }

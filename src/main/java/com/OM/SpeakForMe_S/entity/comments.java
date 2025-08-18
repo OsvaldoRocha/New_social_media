@@ -19,6 +19,16 @@ public class comments {
     @Column(name = "data")
     private LocalDateTime data;
 
+    // Muitos comentários -> 1 Post
+    @ManyToOne
+    @JoinColumn(name = "posts_idposts", nullable = false)
+    private posts post;
+
+    // Muitos comentários -> 1 Usuário
+    @ManyToOne
+    @JoinColumn(name = "users_idusers", nullable = false)
+    private Users user;
+
     public Long getUUID() {
         return UUID;
     }

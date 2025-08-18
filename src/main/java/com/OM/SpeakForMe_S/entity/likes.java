@@ -17,6 +17,16 @@ public class likes {
     @Column(name = "data")
     private LocalDateTime data;
 
+    // Muitos Likes -> 1 Post
+    @ManyToOne
+    @JoinColumn(name = "posts_idposts", nullable = false)
+    private posts post;
+
+    // Muitos Likes -> 1 Usuário
+    @ManyToOne
+    @JoinColumn(name = "users_idusers", nullable = false)
+    private Users user;
+
     public Long getUUID() {
         return UUID;
     }

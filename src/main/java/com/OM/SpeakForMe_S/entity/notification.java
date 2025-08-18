@@ -21,6 +21,11 @@ public class notification {
     @Column(name = "lida", nullable = false)
     private role.lida lida;
 
+    // Muitas notificações -> 1 Usuário
+    @ManyToOne
+    @JoinColumn(name = "users_idusers", nullable = false)
+    private Users user;
+
     public Long getUUID() {
         return UUID;
     }

@@ -19,6 +19,16 @@ public class messages {
     @Column(name = "data")
     private LocalDateTime data;
 
+    // Remetente
+    @ManyToOne
+    @JoinColumn(name = "sender_id", nullable = false)
+    private users sender;
+
+    // Destinatário
+    @ManyToOne
+    @JoinColumn(name = "receiver_id", nullable = false)
+    private Users receiver;
+
     public Long getUUID() {
         return UUID;
     }

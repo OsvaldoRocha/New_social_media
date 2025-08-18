@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.UUID;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -24,6 +26,20 @@ public class posts {
 
     @Column(name = "data")
     private LocalDateTime data;
+
+    // Muitos posts -> 1 usuário
+    @ManyToOne
+    @JoinColumn(name = "users_idusers", nullable = false)
+    private Users user;
+
+    // 1 Post -> N Comentários
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<comments> comments = new ArrayList<>();
+
+    // 1 Post -> N Likes
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<likes> likes = new ArrayList<>();
+
 
     public Long getUUID() {
         return UUID;

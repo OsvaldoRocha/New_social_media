@@ -5,10 +5,13 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.UUID;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 
-public class users {
+public class Users {
     @UUID
     @Column(name = "idusers")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +40,37 @@ public class users {
     @Column(name = "role", nullable = false)
     private role.Role role;
 
+    // 1 Usuário -> N Posts
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<posts> posts = new ArrayList<>();
+
+    // 1 Usuário -> N Comentários
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<comments> comments = new ArrayList<>();
+
+    // 1 Usuário -> N Likes
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<likes> likes = new ArrayList<>();
+
+    // Mensagens enviadas
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<messages> sentMessages = new ArrayList<>();
+
+    // Mensagens recebidas
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<messages> receivedMessages = new ArrayList<>();
+
+
+    // 1 Usuário -> N Notificações
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<notification> notifications = new ArrayList<>();
+
+    // Relações de amizade (solicitações enviadas e recebidas)
+    @OneToMany(mappedBy = "sender")
+    private List<friend_requests> friendRequestsSent = new ArrayList<>();
+
+    @OneToMany(mappedBy = "receiver")
+    private List<friend_requests> friendRequestsReceived = new ArrayList<>();
 
     public Long getUUID() {
         return UUID;
