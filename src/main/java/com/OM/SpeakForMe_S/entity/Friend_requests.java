@@ -7,11 +7,11 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "friend_requests")
-public class friend_requests {
-    @UUID
-    @Column(name = "idfriend_requests")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long UUID;
+public class Friend_requests {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID) // gera UUID automático
+    @Column(name = "idfriend_requests", updatable = false, nullable = false, length = 36)
+    private String id;
 
     @Column(name = "data_criacao")
     private LocalDateTime data_criacao;
@@ -29,12 +29,12 @@ public class friend_requests {
     @JoinColumn(name = "users_idusers1", nullable = false)
     private Users receiver;
 
-    public Long getUUID() {
-        return UUID;
+    public String getId() {
+        return id;
     }
 
-    public void setUUID(Long UUID) {
-        this.UUID = UUID;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public LocalDateTime getData_criacao() {

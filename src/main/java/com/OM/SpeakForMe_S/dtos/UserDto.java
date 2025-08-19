@@ -1,7 +1,8 @@
 package com.OM.SpeakForMe_S.dtos;
 
+import com.OM.SpeakForMe_S.entity.Users;
 import com.OM.SpeakForMe_S.entity.role;
-import com.OM.SpeakForMe_S.entity.users;
+import com.OM.SpeakForMe_S.entity.Users;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -9,7 +10,7 @@ import jakarta.validation.constraints.Size;
 import java.util.UUID;
 
 public class UserDto {
-    private Long idusers;
+    private String idusers;
 
     @NotBlank(message = "Nome do usuário obrigatório")
     private String name;
@@ -31,8 +32,8 @@ public class UserDto {
     public UserDto() {}
 
 
-    public UserDto(users user) {
-        this.idusers = user.getUUID();
+    public UserDto(Users user) {
+        this.idusers = user.getId();
         this.name = user.getName();
         this.email = user.getEmail();
         this.photo = user.getPhoto();

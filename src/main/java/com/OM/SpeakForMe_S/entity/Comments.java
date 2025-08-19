@@ -6,12 +6,13 @@ import org.hibernate.validator.constraints.UUID;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "messages")
-public class messages {
-    @UUID
-    @Column(name = "idmessages")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long UUID;
+@Table(name = "comments")
+public class Comments {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "idcomments", updatable = false, nullable = false, length = 36)
+    private String idcomments;
+
 
     @Column(name = "conteudo")
     private String conteudo;
@@ -19,22 +20,22 @@ public class messages {
     @Column(name = "data")
     private LocalDateTime data;
 
-    // Remetente
+    // Muitos comentários -> 1 Post
     @ManyToOne
-    @JoinColumn(name = "sender_id", nullable = false)
-    private users sender;
+    @JoinColumn(name = "posts_idposts", nullable = false)
+    private Posts post;
 
-    // Destinatário
+    // Muitos comentários -> 1 Usuário
     @ManyToOne
-    @JoinColumn(name = "receiver_id", nullable = false)
-    private Users receiver;
+    @JoinColumn(name = "users_idusers", nullable = false)
+    private Users user;
 
-    public Long getUUID() {
-        return UUID;
+    public String getIdcomments() {
+        return idcomments;
     }
 
-    public void setUUID(Long UUID) {
-        this.UUID = UUID;
+    public void setIdcomments(String idcomments) {
+        this.idcomments = idcomments;
     }
 
     public String getConteudo() {

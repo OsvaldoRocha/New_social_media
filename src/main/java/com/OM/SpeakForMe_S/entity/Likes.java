@@ -7,12 +7,12 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "likes")
-public class likes {
+public class Likes {
 
-    @UUID
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idlikes")
-    private Long UUID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID) // gera UUID automático
+    @Column(name = "idlikes", updatable = false, nullable = false, length = 36)
+    private String id;
 
     @Column(name = "data")
     private LocalDateTime data;
@@ -20,19 +20,19 @@ public class likes {
     // Muitos Likes -> 1 Post
     @ManyToOne
     @JoinColumn(name = "posts_idposts", nullable = false)
-    private posts post;
+    private Posts post;
 
     // Muitos Likes -> 1 Usuário
     @ManyToOne
     @JoinColumn(name = "users_idusers", nullable = false)
     private Users user;
 
-    public Long getUUID() {
-        return UUID;
+    public String getId() {
+        return id;
     }
 
-    public void setUUID(Long UUID) {
-        this.UUID = UUID;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public LocalDateTime getData() {

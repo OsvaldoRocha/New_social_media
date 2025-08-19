@@ -11,12 +11,12 @@ import java.util.List;
 
 @Entity
 @Table(name = "posts")
-public class posts {
+public class Posts {
 
-    @UUID
-    @Column(name = "idusers")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long UUID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID) // gera UUID automático
+    @Column(name = "idposts", updatable = false, nullable = false, length = 36)
+    private String id;
 
     @Column(name = "conteudo")
     private String conteudo;
@@ -34,19 +34,19 @@ public class posts {
 
     // 1 Post -> N Comentários
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<comments> comments = new ArrayList<>();
+    private List<Comments> comments = new ArrayList<>();
 
     // 1 Post -> N Likes
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<likes> likes = new ArrayList<>();
+    private List<Likes> likes = new ArrayList<>();
 
 
-    public Long getUUID() {
-        return UUID;
+    public String getId() {
+        return id;
     }
 
-    public void setUUID(Long UUID) {
-        this.UUID = UUID;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getConteudo() {

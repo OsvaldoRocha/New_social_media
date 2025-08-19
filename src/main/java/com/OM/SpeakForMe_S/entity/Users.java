@@ -12,10 +12,11 @@ import java.util.List;
 @Table(name = "users")
 
 public class Users {
-    @UUID
-    @Column(name = "idusers")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long UUID;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID) // gera UUID automático
+    @Column(name = "idusers", updatable = false, nullable = false, length = 36)
+    private String id;
 
     @Column(name = "name")
     @NotBlank(message = "nome obrigatório")
@@ -42,42 +43,42 @@ public class Users {
 
     // 1 Usuário -> N Posts
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<posts> posts = new ArrayList<>();
+    private List<Posts> posts = new ArrayList<>();
 
     // 1 Usuário -> N Comentários
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<comments> comments = new ArrayList<>();
+    private List<Comments> comments = new ArrayList<>();
 
     // 1 Usuário -> N Likes
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<likes> likes = new ArrayList<>();
+    private List<Likes> likes = new ArrayList<>();
 
     // Mensagens enviadas
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<messages> sentMessages = new ArrayList<>();
+    private List<Messages> sentMessages = new ArrayList<>();
 
     // Mensagens recebidas
     @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<messages> receivedMessages = new ArrayList<>();
+    private List<Messages> receivedMessages = new ArrayList<>();
 
 
     // 1 Usuário -> N Notificações
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<notification> notifications = new ArrayList<>();
+    private List<Notification> notifications = new ArrayList<>();
 
     // Relações de amizade (solicitações enviadas e recebidas)
     @OneToMany(mappedBy = "sender")
-    private List<friend_requests> friendRequestsSent = new ArrayList<>();
+    private List<Friend_requests> friendRequestsSent = new ArrayList<>();
 
     @OneToMany(mappedBy = "receiver")
-    private List<friend_requests> friendRequestsReceived = new ArrayList<>();
+    private List<Friend_requests> friendRequestsReceived = new ArrayList<>();
 
-    public Long getUUID() {
-        return UUID;
+    public String getId() {
+        return id;
     }
 
-    public void setUUID(Long UUID) {
-        this.UUID = UUID;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {

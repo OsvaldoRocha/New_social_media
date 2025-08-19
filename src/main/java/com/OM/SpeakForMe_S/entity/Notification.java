@@ -5,11 +5,12 @@ import org.hibernate.validator.constraints.UUID;
 
 @Entity
 @Table(name = "notification")
-public class notification {
-    @UUID
-    @Column(name = "idnotification")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long UUID;
+public class Notification {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID) // gera UUID automático
+    @Column(name = "idnotification", updatable = false, nullable = false, length = 36)
+    private String id;
 
     @Column(name = "idtipo")
     private String tipo;
@@ -26,12 +27,12 @@ public class notification {
     @JoinColumn(name = "users_idusers", nullable = false)
     private Users user;
 
-    public Long getUUID() {
-        return UUID;
+    public String getId() {
+        return id;
     }
 
-    public void setUUID(Long UUID) {
-        this.UUID = UUID;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTipo() {
